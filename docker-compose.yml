@@ -1,0 +1,25 @@
+version: '3'
+services:
+  fastapi-auth-docker:
+    image: fastapi-auth-docker
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    volumes:
+      - ./app:/code/app
+      - ./tests:/code/tests
+
+  mongodb:
+    image: mongo:latest
+    container_name: local-mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - mongodb_data:/data/db
+
+volumes:
+  mongodb_data:
