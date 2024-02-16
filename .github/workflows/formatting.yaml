@@ -1,0 +1,29 @@
+name: Formatting
+on:
+  pull_request:
+
+jobs:
+  pytest:
+    name: Check formatting
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup python version
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
+      - name: Install dependancies
+        run: |
+          pip install isort flake8
+
+      - name: Lint with flake8
+        run: |
+          flake8 --filename=*.py --count --statistics
+
+      - name: Test isort
+        run: |
+          isort -c .

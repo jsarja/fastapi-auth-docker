@@ -1,0 +1,23 @@
+name: Pytest
+on:
+  pull_request:
+  push: { branches: main }
+
+jobs:
+  pytest:
+    name: Run tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build Docker image
+        run: docker build -t fastapi-auth-docker .
+
+      # The docker-compose file requires .env file to exists so create empty .env file
+      - name: Add .env file
+        run: touch .env
+
+      - name: Run pytest
+        run: docker-compose run fastapi-auth-docker python -m pytest

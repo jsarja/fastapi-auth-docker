@@ -39,5 +39,4 @@ def test_register_and_signin():
         "/auth/token",
         data={"username": "test@email.com", "password": "password"},
     )
-
     assert signin_response.status_code == 200

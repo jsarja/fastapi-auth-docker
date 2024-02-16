@@ -39,9 +39,7 @@ class NoteDBClient(ABC):
 
 class NoteMongoDBClient(NoteDBClient):
     def __init__(self):
-        mongo_db_client = MongoClient(
-            host=settings.MONGODB_URL, uuidRepresentation="standard"
-        )
+        mongo_db_client = MongoClient(host=settings.MONGODB_URL, uuidRepresentation="standard")
         mongo_db_database = mongo_db_client.get_database(settings.MONGODB_DATABASE_NAME)
         self.note_connection = mongo_db_database.get_collection("note")
 

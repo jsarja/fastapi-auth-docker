@@ -1,8 +1,8 @@
 from fastapi.testclient import TestClient
 
+from app.dependencies import get_note_db_client, get_user_db_client
 from app.main import app
-from app.dependencies import get_user_db_client, get_note_db_client
-from tests.db_client_mock import UserTestDBClient, NoteTestBClient
+from tests.db_client_mock import NoteTestBClient, UserTestDBClient
 
 client = TestClient(app)
 
@@ -36,7 +36,7 @@ def test_end_to_end():
     )
     assert signin_response.status_code == 200
 
-    # Create a new note with authentication header
+    # Create a new note with Authorization header
     jwt_token = signin_response.json()["access_token"]
     response = client.post(
         "/note",
@@ -47,7 +47,7 @@ def test_end_to_end():
     )
     assert response.status_code == 200
 
-    # Get user of notes.
+    # Get list of user notes.
     response = client.get(
         "/note",
         headers={
