@@ -1,0 +1,23 @@
+[tool.isort]
+# py_version=312
+line_length = 100
+profile = "black"
+
+
+[tool.black]
+# target-version = ['py312']
+line-length = 100
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.gitignore
+  | \.env
+  | .+/migrations
+  | \.yml
+  | \.yaml
+  | \.json
+  | \.txt
+  | \.md
+  | \.sh
+)/
+'''

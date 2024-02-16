@@ -1,20 +1,16 @@
-from datetime import timedelta, datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Annotated
 from uuid import uuid4
 
 from fastapi import Form, HTTPException, status
-from google.oauth2 import id_token
 from google.auth.transport import requests
+from google.oauth2 import id_token
 from jose import jwt
 from passlib.context import CryptContext
 from pydantic import UUID4
 
 from ..config import settings
-from .constants import (
-    ACCESS_TOKEN_EXPIRE_MINUTES,
-    CREDENTIALS_EXCEPTION,
-    DECODE_ALGORITHM,
-)
+from .constants import ACCESS_TOKEN_EXPIRE_MINUTES, CREDENTIALS_EXCEPTION, DECODE_ALGORITHM
 from .models import TokenPayload
 from .user_db_client import UserDBClient, UserModel
 
@@ -22,8 +18,7 @@ from .user_db_client import UserDBClient, UserModel
 def create_access_token(user_id: UUID4):
     token_data = TokenPayload(
         sub=user_id.hex,
-        expires=datetime.now(timezone.utc)
-        + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES),
+        expires=datetime.now(timezone.utc) + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES),
     )
     encoded_jwt = jwt.encode(
         token_data.model_dump(mode="json"),
@@ -60,9 +55,7 @@ def create_google_user(
     if existing_user := db_client.get_google_user(google_user_id):
         return existing_user
 
-    new_user = UserModel(
-        id=uuid4(), email=email, google_id=google_user_id, is_disabled=False
-    )
+    new_user = UserModel(id=uuid4(), email=email, google_id=google_user_id, is_disabled=False)
     db_client.save_user(new_user)
     return new_user
 
@@ -89,15 +82,12 @@ def create_password_user(
     password: str,
     db_client: UserDBClient,
 ):
-    # Note: To mitigate potential sniffing and enumeration attacks, it's you can consider implementing
+    # Note: To mitigate potential sniffing and enumeration attacks, you can consider implementing
     # some best practices, including using generic error messages (avoiding direct indication that
     # an email is already in use), implementing rate limiting, and utilizing CAPTCHA to deter
-    # automated scripts. These measures help protect user privacy and reduce the risk of unauthorized
-    # data access while maintaining a smooth registration process.
+    # automated scripts.
     if db_client.get_user_for_email(email) is not None:
-        raise HTTPException(
-            status_code=status.HTTP_409_CONFLICT, detail="Email already in use"
-        )
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Email already in use")
 
     new_user = UserModel(
         id=uuid4(), email=email, password=pwd_context.hash(password), is_disabled=False

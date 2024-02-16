@@ -8,7 +8,7 @@ from jose import JWTError, jwt
 from pydantic import ValidationError
 
 from .config import settings
-from .internal.constants import DECODE_ALGORITHM, CREDENTIALS_EXCEPTION
+from .internal.constants import CREDENTIALS_EXCEPTION, DECODE_ALGORITHM
 from .internal.models import TokenPayload
 from .internal.note_db_client import NoteDBClient, NoteMongoDBClient
 from .internal.user_db_client import UserDBClient, UserMongoDBClient
@@ -37,7 +37,7 @@ def get_current_user(
             algorithms=[DECODE_ALGORITHM],
         )
         token_payload = TokenPayload(**payload_dict)
-    except (ValidationError, JWTError) as e:
+    except (ValidationError, JWTError):
         raise CREDENTIALS_EXCEPTION
 
     # Check if the token has expired

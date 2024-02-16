@@ -10,12 +10,11 @@ from ..internal.user_db_client import UserDBClient
 from ..internal.user_management import (
     authenticate_google_user,
     authenticate_password_user,
-    create_google_user,
     create_access_token,
-    verify_google_oauth2_token,
+    create_google_user,
     create_password_user,
+    verify_google_oauth2_token,
 )
-
 
 router = APIRouter(
     prefix="/auth",

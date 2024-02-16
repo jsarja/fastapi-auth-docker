@@ -3,12 +3,11 @@ from typing import Annotated
 from uuid import uuid4
 
 from fastapi import APIRouter, Depends, HTTPException, status
-from pydantic import BaseModel, UUID4
+from pydantic import UUID4, BaseModel
 
 from ..dependencies import get_current_user, get_note_db_client
+from ..internal.note_db_client import NoteDBClient, NoteModel
 from ..internal.user_management import UserModel
-from ..internal.note_db_client import NoteModel, NoteDBClient
-
 
 router = APIRouter(
     prefix="/note",

@@ -1,7 +1,7 @@
 from pydantic import UUID4
 
-from app.internal.user_db_client import UserDBClient, UserModel
 from app.internal.note_db_client import NoteDBClient, NoteModel
+from app.internal.user_db_client import UserDBClient, UserModel
 
 
 class NoteTestBClient(NoteDBClient):
@@ -12,9 +12,7 @@ class NoteTestBClient(NoteDBClient):
         return [note for note in self.data if note.user_id == user_id]
 
     def get_note(self, user_id: UUID4, note_id: UUID4) -> NoteModel | None:
-        note = [
-            note for note in self.data if note.user_id == user_id and note.id == note_id
-        ]
+        note = [note for note in self.data if note.user_id == user_id and note.id == note_id]
         return note[0] if note else None
 
     def save_note(self, note: NoteModel):
@@ -22,9 +20,7 @@ class NoteTestBClient(NoteDBClient):
 
     def _get_note_index(self, user_id: UUID4, note_id: UUID4):
         index_in_list = [
-            i
-            for i, note in enumerate(self.data)
-            if note.user_id == user_id and note.id == note_id
+            i for i, note in enumerate(self.data) if note.user_id == user_id and note.id == note_id
         ]
         return index_in_list[0] if index_in_list else None
 

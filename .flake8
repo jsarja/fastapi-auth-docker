@@ -1,0 +1,9 @@
+[flake8]
+# Ignore E501: line too long errors => The formatter is handling the line wrapping.
+extend-ignore = E501
+max-complexity = 15
+exclude = 
+    .venv
+    env
+    __pycache__
+    

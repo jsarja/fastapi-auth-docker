@@ -2,9 +2,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    MONGODB_URL: str = (
-        "mongodb://root:example@local-mongodb?retryWrites=true&w=majority&uuidRepresentation=standard"
-    )
+    MONGODB_URL: str = "mongodb://root:example@local-mongodb?retryWrites=true&w=majority&uuidRepresentation=standard"
     MONGODB_DATABASE_NAME: str = "local-mongodb"
 
     AUTH_SECRET: str = "bad_secret"

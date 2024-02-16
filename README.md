@@ -338,6 +338,33 @@ Finally, rebuild your Docker image to include the new package:
 docker build -t fastapi-auth-docker .
 ```
 
+### CI/CD
+#### pre-commit
+Project uses pre-commit to check code styling when creating commits. Initilize pre-commit with command:
+```shell
+pre-commit install
+```
+Runs:
+- **Formatting:** black
+- **Sorting imports:** isort
+- **Linting:** flake8
+
+The pre-commit runs on changed files on commits. You can also manually check all the files:
+```shell
+pre-commit run --all-files
+```
+More info: (https://pre-commit.com/)[https://pre-commit.com/]
+
+#### Github actions
+
+#### Runs unit tests
+
+#### Run formatting
+``
+
+#### Deployment pipeline
+Not implemented yet.
+
 ## TODO Items
 - **Lifecycle of Email-Password Registration:**
     - Implementing an email verification flow to confirm user email addresses.
