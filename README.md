@@ -54,6 +54,7 @@ signin_response = client.post(
     data={"username": "test@email.com", "password": "password"},
 )
 assert signin_response.status_code == 200
+assert signin_response.json().get("access_token")
 ```
 
 4. **Accessing Protected Endpoints:** After signing in, the received JWT token must be included in the `Authorization` header for requests to protected endpoints. This enables authenticated operations like creating a new note:
