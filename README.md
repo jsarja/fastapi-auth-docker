@@ -354,17 +354,12 @@ The pre-commit runs on changed files on commits. You can also manually check all
 ```shell
 pre-commit run --all-files
 ```
-More info: (https://pre-commit.com/)[https://pre-commit.com/]
+More info: [https://pre-commit.com/](https://pre-commit.com/)
 
 #### Github actions
-
-#### Runs unit tests
-
-#### Run formatting
-``
-
-#### Deployment pipeline
-Not implemented yet.
+When creating a Pull Request in GitHub, automatic GitHub actions are run on:
+- Unit tests
+- Code formatting
 
 ## TODO Items
 - **Lifecycle of Email-Password Registration:**
